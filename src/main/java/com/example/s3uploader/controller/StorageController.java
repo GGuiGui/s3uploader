@@ -4,9 +4,12 @@ import com.example.s3uploader.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/file")
@@ -15,9 +18,11 @@ public class StorageController {
     @Autowired
     private StorageService service;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
-        return new ResponseEntity<>(service.uploadFile(file), HttpStatus.OK);
+    @PostMapping(value = "/upload")
+    public ResponseEntity<String> uploadFile(@RequestPart MultipartFile image,
+                                             @RequestPart String content) {
+        System.out.println(content);
+        return new ResponseEntity<>(service.uploadFile(image), HttpStatus.OK);
     }
 
     @GetMapping("/download/{fileName}")

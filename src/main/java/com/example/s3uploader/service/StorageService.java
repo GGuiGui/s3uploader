@@ -20,6 +20,7 @@ import java.io.IOException;
 public class StorageService {
 
     @Value("${application.bucket.name}")
+
     private String bucketName;
 
     @Autowired
@@ -28,6 +29,12 @@ public class StorageService {
     public String uploadFile(MultipartFile file) {
         File fileObj = convertMultiPartFileToFile(file);
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        System.out.println("버킷 이름은: "+ bucketName);
+        System.out.println("파일 이름은: "+ fileName);
+        System.out.println("fileObj 이름: "+ fileObj.getName());
+        System.out.println("fileObj AbsolutePath: " + fileObj.getAbsolutePath());
+        System.out.println("fileObj Path: " + fileObj.getPath());
+        System.out.println("fileObj ParentFile: " + fileObj.getParentFile());
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
         fileObj.delete();
         return "File uploaded : " + fileName;

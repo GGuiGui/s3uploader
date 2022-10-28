@@ -12,7 +12,6 @@ application:
     bucket:
         name:
 
-
 spring:
     servlet:
         multipart:
@@ -21,6 +20,6 @@ spring:
             max-file-size: 5MB
             max-request-size: 10MB
 
-
 server:
     port: 9090
+
